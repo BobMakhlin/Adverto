@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistence.Logging;
+using Persistence.Primary;
 using Presentation.Common.Extensions;
 using Presentation.Common.Middlewares;
 
@@ -33,7 +34,8 @@ namespace Presentation.API
 
             services.AddApplication();
             services.AddApplicationValidation();
-            
+
+            services.AddPersistence(Configuration);
             services.AddPersistenceLogging(Configuration);
         }
 

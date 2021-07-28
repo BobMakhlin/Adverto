@@ -25,6 +25,7 @@
     <ProjectReference Include="..\Application.Validation\Application.Validation.csproj" />
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Persistence.Logging\Persistence.Logging.csproj" />
+    <ProjectReference Include="..\Persistence.Primary\Persistence.Primary.csproj" />
     <ProjectReference Include="..\Presentation.Common\Presentation.Common.csproj" />
   </ItemGroup>
 
