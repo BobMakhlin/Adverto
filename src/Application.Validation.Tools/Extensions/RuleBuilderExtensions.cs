@@ -111,5 +111,24 @@ namespace Application.Validation.Tools.Extensions
                 )
                 .WithMessage("The given values are not unique for the specified columns combination");
         }
+
+        /// <summary>
+        /// Defines a length validator on the current rule builder, but only for array properties.
+        /// Validation will fail if the length of the array is less than the length specified.
+        /// </summary>
+        /// <param name="ruleBuilder"></param>
+        /// <param name="minimumLength"></param>
+        /// <typeparam name="TObject">
+        /// Type of object being validated
+        /// </typeparam>
+        /// <returns></returns>
+        public static IRuleBuilderOptions<TObject, Array> ArrayMinimumLength<TObject>(
+            this IRuleBuilder<TObject, Array> ruleBuilder,
+            int minimumLength)
+        {
+            return ruleBuilder
+                .Must(array => array?.Length >= minimumLength)
+                .WithMessage($"Array length must be at least {minimumLength}");
+        }
     }
 }
