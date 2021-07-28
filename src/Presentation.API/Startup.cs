@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Persistence.Logging;
 using Presentation.Common.Extensions;
 using Presentation.Common.Middlewares;
 
@@ -32,6 +33,8 @@ namespace Presentation.API
 
             services.AddApplication();
             services.AddApplicationValidation();
+            
+            services.AddPersistenceLogging(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
