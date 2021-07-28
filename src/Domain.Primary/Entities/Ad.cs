@@ -10,8 +10,8 @@ namespace Domain.Primary.Entities
         public double Cost { get; set; }
         public string Content { get; set; }
 
-        public List<Tag> Tags { get; set; }
-        public List<Category> Categories { get; set; }
+        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<Category> Categories { get; set; } = new List<Category>();
 
         public ViewedAd ViewedAd { get; set; }
         public DisabledAd DisabledAd { get; set; }

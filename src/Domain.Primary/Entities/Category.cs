@@ -8,6 +8,6 @@ namespace Domain.Primary.Entities
         public Guid CategoryId { get; set; }
         public string Title { get; set; }
 
-        public List<Ad> Ads { get; set; }
+        public List<Ad> Ads { get; set; } = new List<Ad>();
     }
 }
