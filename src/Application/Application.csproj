@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <LangVersion>8</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+      <PackageReference Include="MediatR" Version="9.0.0" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Application.Pagination\Application.Pagination.csproj" />
+      <ProjectReference Include="..\Application.Persistence\Application.Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="CQRS" />
+    </ItemGroup>
+
+</Project>
