@@ -28,11 +28,19 @@ namespace Presentation.API.Controllers
             return Ok(tags);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TagDto>> GetTagByIdAsync([FromRoute] Guid id)
+        {
+            TagDto tag = await Mediator.Send(new GetTagByIdQuery {TagId = id});
+            return Ok(tag);
+        }
+        
         [HttpPost]
         public async Task<ActionResult<Guid>> PostTagAsync([FromBody] CreateTagCommand request)
         {
             Guid tagId = await Mediator.Send(request);
             return Ok(tagId);
         }
+        
     }
 }
