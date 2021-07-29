@@ -14,6 +14,8 @@ namespace Presentation.API.Controllers
     [Route("[controller]")]
     public class AdsController : MyBaseController
     {
+        #region AdStorage
+
         [HttpPost]
         public async Task<ActionResult<Guid>> PostAdAsync([FromBody] CreateAdCommand request)
         {
@@ -27,6 +29,10 @@ namespace Presentation.API.Controllers
             await Mediator.Send(new DeleteAdCommand {AdId = id});
             return NoContent();
         }
+
+        #endregion
+
+        #region AdCategory
 
         [HttpPost("categories")]
         public async Task<IActionResult> AddCategoryToAdAsync([FromBody] AddCategoryToAdCommand request)
@@ -42,6 +48,10 @@ namespace Presentation.API.Controllers
             return NoContent();
         }
 
+        #endregion
+
+        #region AdTag
+
         [HttpPost("tags")]
         public async Task<IActionResult> AddTagToAdAsync([FromBody] AddTagToAdCommand request)
         {
@@ -56,18 +66,28 @@ namespace Presentation.API.Controllers
             return NoContent();
         }
 
+        #endregion
+
+        #region AdDisabled
+
         [HttpPost("{id}/disable")]
         public async Task<IActionResult> DisableAdAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new DisableAdCommand {AdId = id});
             return NoContent();
         }
-        
+
+        #endregion
+
+        #region AdViewed
+
         [HttpPost("{id}/view")]
         public async Task<IActionResult> ViewAdAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new ViewAdCommand {AdId = id});
             return NoContent();
         }
+
+        #endregion
     }
 }

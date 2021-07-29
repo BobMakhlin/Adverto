@@ -14,6 +14,8 @@ namespace Presentation.API.Controllers
     [Route("[controller]")]
     public class CategoriesController : MyBaseController
     {
+        #region CategoryStorage
+
         [HttpGet("list")]
         public async Task<ActionResult<List<CategoryDto>>> GetListOfCategoriesAsync()
         {
@@ -62,5 +64,7 @@ namespace Presentation.API.Controllers
             await Mediator.Send(new DeleteCategoryCommand {CategoryId = id});
             return NoContent();
         }
+
+        #endregion
     }
 }

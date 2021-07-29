@@ -14,6 +14,8 @@ namespace Presentation.API.Controllers
     [Route("[controller]")]
     public class TagsController : MyBaseController
     {
+        #region TagStorage
+
         [HttpGet("list")]
         public async Task<ActionResult<List<TagDto>>> GetListOfTagsAsync()
         {
@@ -61,5 +63,7 @@ namespace Presentation.API.Controllers
             await Mediator.Send(new DeleteTagCommand {TagId = id});
             return NoContent();
         }
+
+        #endregion
     }
 }
