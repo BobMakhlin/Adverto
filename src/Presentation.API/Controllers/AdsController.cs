@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Application.CQRS.Ads.Commands.AdCategory;
+using Application.CQRS.Ads.Commands.AdDisabled;
 using Application.CQRS.Ads.Commands.AdStorage;
 using Application.CQRS.Ads.Commands.AdTag;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,13 @@ namespace Presentation.API.Controllers
         public async Task<IActionResult> DeleteTagOfAdAsync([FromBody] DeleteTagOfAdCommand request)
         {
             await Mediator.Send(request);
+            return NoContent();
+        }
+
+        [HttpPost("{id}/disable")]
+        public async Task<IActionResult> DisableAdAsync([FromRoute] Guid id)
+        {
+            await Mediator.Send(new DisableAdCommand {AdId = id});
             return NoContent();
         }
     }
