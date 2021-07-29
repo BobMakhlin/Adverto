@@ -1,9 +1,9 @@
-﻿    using System;
-    using System.Threading.Tasks;
-    using Application.CQRS.Ads.Commands.AdCategory;
-    using Application.CQRS.Ads.Commands.AdStorage;
-    using Application.CQRS.Ads.Commands.AdTag;
-    using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using Application.CQRS.Ads.Commands.AdCategory;
+using Application.CQRS.Ads.Commands.AdStorage;
+using Application.CQRS.Ads.Commands.AdTag;
+using Microsoft.AspNetCore.Mvc;
 using Presentation.Common.ControllerAbstractions;
 
 namespace Presentation.API.Controllers
@@ -18,28 +18,28 @@ namespace Presentation.API.Controllers
             Guid createdAdId = await Mediator.Send(request);
             return Ok(createdAdId);
         }
-        
+
         [HttpPost("categories")]
         public async Task<IActionResult> AddCategoryToAdAsync([FromBody] AddCategoryToAdCommand request)
         {
             await Mediator.Send(request);
             return NoContent();
         }
-        
+
         [HttpDelete("categories")]
         public async Task<IActionResult> DeleteCategoryOfAdAsync([FromBody] DeleteCategoryOfAdCommand request)
         {
             await Mediator.Send(request);
             return NoContent();
         }
-        
+
         [HttpPost("tags")]
         public async Task<IActionResult> AddTagToAdAsync([FromBody] AddTagToAdCommand request)
         {
             await Mediator.Send(request);
             return NoContent();
         }
-        
+
         [HttpDelete("tags")]
         public async Task<IActionResult> DeleteTagOfAdAsync([FromBody] DeleteTagOfAdCommand request)
         {
