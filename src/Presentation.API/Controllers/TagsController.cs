@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.CQRS.Tags.Commands.TagStorage;
 using Application.CQRS.Tags.Models;
-using Application.CQRS.Tags.Queries;
+using Application.CQRS.Tags.Queries.TagStorage;
 using Application.Pagination.Common.Models.PagedList;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Common.ControllerAbstractions;
@@ -24,6 +26,13 @@ namespace Presentation.API.Controllers
         {
             IPagedList<TagDto> tags = await Mediator.Send(request);
             return Ok(tags);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Guid>> PostTagAsync([FromBody] CreateTagCommand request)
+        {
+            Guid tagId = await Mediator.Send(request);
+            return Ok(tagId);
         }
     }
 }

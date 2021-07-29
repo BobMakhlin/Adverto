@@ -8,7 +8,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.CQRS.Tags.Queries
+namespace Application.CQRS.Tags.Queries.TagStorage
 {
     public class GetListOfTagsQuery : IRequest<List<TagDto>>
     {

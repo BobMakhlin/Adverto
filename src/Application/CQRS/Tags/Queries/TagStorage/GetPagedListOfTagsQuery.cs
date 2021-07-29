@@ -11,7 +11,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.CQRS.Tags.Queries
+namespace Application.CQRS.Tags.Queries.TagStorage
 {
     public class GetPagedListOfTagsQuery : IRequest<IPagedList<TagDto>>, IPaginationRequest
     {
