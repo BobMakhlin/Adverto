@@ -2,6 +2,7 @@
     using System.Threading.Tasks;
     using Application.CQRS.Ads.Commands.AdCategory;
     using Application.CQRS.Ads.Commands.AdStorage;
+    using Application.CQRS.Ads.Commands.AdTag;
     using Microsoft.AspNetCore.Mvc;
 using Presentation.Common.ControllerAbstractions;
 
@@ -27,6 +28,13 @@ namespace Presentation.API.Controllers
         
         [HttpDelete("categories")]
         public async Task<ActionResult<Guid>> DeleteCategoryOfAdAsync([FromBody] DeleteCategoryOfAdCommand request)
+        {
+            await Mediator.Send(request);
+            return NoContent();
+        }
+        
+        [HttpPost("tags")]
+        public async Task<ActionResult<Guid>> AddTagToAdAsync([FromBody] AddTagToAdCommand request)
         {
             await Mediator.Send(request);
             return NoContent();
