@@ -54,5 +54,13 @@ namespace Presentation.API.Controllers
          
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTagAsync([FromRoute] Guid id)
+        {
+            await Mediator.Send(new DeleteTagCommand {TagId = id});
+            return NoContent();
+        }
+
     }
 }
