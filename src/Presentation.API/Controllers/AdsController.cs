@@ -20,6 +20,13 @@ namespace Presentation.API.Controllers
             return Ok(createdAdId);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAdAsync([FromRoute] Guid id)
+        {
+            await Mediator.Send(new DeleteAdCommand {AdId = id});
+            return NoContent();
+        }
+
         [HttpPost("categories")]
         public async Task<IActionResult> AddCategoryToAdAsync([FromBody] AddCategoryToAdCommand request)
         {
