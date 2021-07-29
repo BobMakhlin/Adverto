@@ -4,6 +4,7 @@ using Application.CQRS.Ads.Commands.AdCategory;
 using Application.CQRS.Ads.Commands.AdDisabled;
 using Application.CQRS.Ads.Commands.AdStorage;
 using Application.CQRS.Ads.Commands.AdTag;
+using Application.CQRS.Ads.Commands.AdViewed;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Common.ControllerAbstractions;
 
@@ -59,6 +60,13 @@ namespace Presentation.API.Controllers
         public async Task<IActionResult> DisableAdAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new DisableAdCommand {AdId = id});
+            return NoContent();
+        }
+        
+        [HttpPost("{id}/view")]
+        public async Task<IActionResult> ViewAdAsync([FromRoute] Guid id)
+        {
+            await Mediator.Send(new ViewAdCommand {AdId = id});
             return NoContent();
         }
     }
