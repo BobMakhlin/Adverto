@@ -1,6 +1,7 @@
 ﻿    using System;
     using System.Threading.Tasks;
-    using Application.CQRS.Ads.Commands;
+    using Application.CQRS.Ads.Commands.AdCategory;
+    using Application.CQRS.Ads.Commands.AdStorage;
     using Microsoft.AspNetCore.Mvc;
 using Presentation.Common.ControllerAbstractions;
 
@@ -15,6 +16,13 @@ namespace Presentation.API.Controllers
         {
             Guid createdAdId = await Mediator.Send(request);
             return Ok(createdAdId);
+        }
+        
+        [HttpPost("categories")]
+        public async Task<ActionResult<Guid>> AddCategoryToAdAsync([FromBody] AddCategoryToAdCommand request)
+        {
+            await Mediator.Send(request);
+            return NoContent();
         }
     }
 }

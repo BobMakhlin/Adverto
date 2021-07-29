@@ -5,7 +5,7 @@ using Application.Persistence.Interfaces;
 using Domain.Primary.Entities;
 using MediatR;
 
-namespace Application.CQRS.Ads.Commands
+namespace Application.CQRS.Ads.Commands.AdStorage
 {
     public class CreateAdCommand : IRequest<Guid>
     {
@@ -19,7 +19,7 @@ namespace Application.CQRS.Ads.Commands
 
         #region Classes
 
-        public class CreateAdCommandHandler : IRequestHandler<CreateAdCommand, Guid>
+        public class Handler : IRequestHandler<CreateAdCommand, Guid>
         {
             #region Fields
 
@@ -29,7 +29,7 @@ namespace Application.CQRS.Ads.Commands
 
             #region Constructors
 
-            public CreateAdCommandHandler(IAdvertoDbContext context)
+            public Handler(IAdvertoDbContext context)
             {
                 _context = context;
             }

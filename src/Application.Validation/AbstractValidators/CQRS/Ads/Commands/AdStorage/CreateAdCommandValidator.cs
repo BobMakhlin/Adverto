@@ -1,8 +1,8 @@
-﻿using Application.CQRS.Ads.Commands;
+﻿using Application.CQRS.Ads.Commands.AdStorage;
 using Application.Validation.Options;
 using FluentValidation;
 
-namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands
+namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
 {
     public class CreateAdCommandValidator : AbstractValidator<CreateAdCommand>
     {
