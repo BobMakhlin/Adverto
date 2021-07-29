@@ -20,21 +20,28 @@ namespace Presentation.API.Controllers
         }
         
         [HttpPost("categories")]
-        public async Task<ActionResult<Guid>> AddCategoryToAdAsync([FromBody] AddCategoryToAdCommand request)
+        public async Task<IActionResult> AddCategoryToAdAsync([FromBody] AddCategoryToAdCommand request)
         {
             await Mediator.Send(request);
             return NoContent();
         }
         
         [HttpDelete("categories")]
-        public async Task<ActionResult<Guid>> DeleteCategoryOfAdAsync([FromBody] DeleteCategoryOfAdCommand request)
+        public async Task<IActionResult> DeleteCategoryOfAdAsync([FromBody] DeleteCategoryOfAdCommand request)
         {
             await Mediator.Send(request);
             return NoContent();
         }
         
         [HttpPost("tags")]
-        public async Task<ActionResult<Guid>> AddTagToAdAsync([FromBody] AddTagToAdCommand request)
+        public async Task<IActionResult> AddTagToAdAsync([FromBody] AddTagToAdCommand request)
+        {
+            await Mediator.Send(request);
+            return NoContent();
+        }
+        
+        [HttpDelete("tags")]
+        public async Task<IActionResult> DeleteTagOfAdAsync([FromBody] DeleteTagOfAdCommand request)
         {
             await Mediator.Send(request);
             return NoContent();
