@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.CQRS.Categories.Model;
 using Application.CQRS.Categories.Queries.CategoryStorage;
@@ -25,6 +26,13 @@ namespace Presentation.API.Controllers
         {
             IPagedList<CategoryDto> categories = await Mediator.Send(request);
             return Ok(categories);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CategoryDto>> GetCategoryByIdAsync([FromRoute] Guid id)
+        {
+            CategoryDto category = await Mediator.Send(new GetCategoryByIdQuery {CategoryId = id});
+            return Ok(category);
         }
     }
 }
