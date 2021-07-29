@@ -24,5 +24,12 @@ namespace Presentation.API.Controllers
             await Mediator.Send(request);
             return NoContent();
         }
+        
+        [HttpDelete("categories")]
+        public async Task<ActionResult<Guid>> DeleteCategoryOfAdAsync([FromBody] DeleteCategoryOfAdCommand request)
+        {
+            await Mediator.Send(request);
+            return NoContent();
+        }
     }
 }
