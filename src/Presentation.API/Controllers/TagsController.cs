@@ -61,6 +61,5 @@ namespace Presentation.API.Controllers
             await Mediator.Send(new DeleteTagCommand {TagId = id});
             return NoContent();
         }
-
     }
 }

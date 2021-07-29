@@ -55,5 +55,12 @@ namespace Presentation.API.Controllers
          
             return NoContent();
         }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategoryAsync([FromRoute] Guid id)
+        {
+            await Mediator.Send(new DeleteCategoryCommand {CategoryId = id});
+            return NoContent();
+        }
     }
 }
