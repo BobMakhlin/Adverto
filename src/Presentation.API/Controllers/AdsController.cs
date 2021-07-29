@@ -10,7 +10,7 @@ namespace Presentation.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AdController : MyBaseController
+    public class AdsController : MyBaseController
     {
         [HttpPost]
         public async Task<ActionResult<Guid>> PostAdAsync([FromBody] CreateAdCommand request)
