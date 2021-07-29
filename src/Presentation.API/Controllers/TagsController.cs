@@ -41,6 +41,18 @@ namespace Presentation.API.Controllers
             Guid tagId = await Mediator.Send(request);
             return Ok(tagId);
         }
-        
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTagAsync([FromRoute] Guid id, [FromBody] UpdateTagCommand request)
+        {
+            if (id != request.TagId)
+            {
+                return BadRequest();
+            }
+            
+            await Mediator.Send(request);
+         
+            return NoContent();
+        }
     }
 }
