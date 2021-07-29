@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.CQRS.Categories.Commands.CategoryStorage;
 using Application.CQRS.Categories.Model;
 using Application.CQRS.Categories.Queries.CategoryStorage;
 using Application.Pagination.Common.Models.PagedList;
@@ -33,6 +34,13 @@ namespace Presentation.API.Controllers
         {
             CategoryDto category = await Mediator.Send(new GetCategoryByIdQuery {CategoryId = id});
             return Ok(category);
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult<Guid>> PostCategoryAsync([FromBody] CreateCategoryCommand request)
+        {
+            Guid categoryId = await Mediator.Send(request);
+            return Ok(categoryId);
         }
     }
 }
