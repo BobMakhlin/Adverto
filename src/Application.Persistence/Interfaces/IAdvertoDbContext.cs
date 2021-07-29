@@ -1,4 +1,6 @@
-﻿using Domain.Primary.Entities;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Domain.Primary.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Persistence.Interfaces
@@ -10,5 +12,7 @@ namespace Application.Persistence.Interfaces
         public DbSet<Category> Categories { get; set; }
         public DbSet<ViewedAd> ViewedAds { get; set; }
         public DbSet<DisabledAd> DisabledAds { get; set; }
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

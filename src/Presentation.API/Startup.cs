@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Application;
 using Application.Validation;
 using Microsoft.AspNetCore.Builder;
@@ -27,8 +28,8 @@ namespace Presentation.API
             services.AddSwaggerGen();
             
             services.AddCors();
-        
-            services.AddControllers();
+
+            RegisterControllers(services);
 
             services.AddHttpContextAccessor();
 
@@ -61,6 +62,20 @@ namespace Presentation.API
             app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        /// <summary>
+        /// Registers the controllers in the specified <paramref name="serviceCollection"/>.
+        /// </summary>
+        private void RegisterControllers(IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddControllers()
+                .AddJsonOptions(opts =>
+                {
+                    var enumConverter = new JsonStringEnumConverter();
+                    opts.JsonSerializerOptions.Converters.Add(enumConverter);
+                });
         }
     }
 }
