@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.CQRS.Ads.Models;
 using Application.CQRS.Categories.Model;
 using Application.CQRS.Statistics.Queries;
 using Application.CQRS.Tags.Models;
@@ -26,12 +27,19 @@ namespace Presentation.API.Controllers
             List<CategoryDto> top3AdCategories = await Mediator.Send(new GetTop3AdCategoriesQuery());
             return Ok(top3AdCategories);
         }
+
+        [HttpGet("top10-ads-by-views")]
+        public async Task<ActionResult<List<AdDto>>> GetTop10AdsByViews()
+        {
+            List<AdDto> top10AdsByViews = await Mediator.Send(new GetTop10AdsByViewsQuery());
+            return Ok(top10AdsByViews);
+        }
         
         [HttpGet("top15-tags-by-views")]
         public async Task<ActionResult<List<TagDto>>> GetTop15TagsByViews()
         {
-            List<TagDto> tags = await Mediator.Send(new GetTop15TagsByViewsQuery());
-            return Ok(tags);
+            List<TagDto> top15TagsByViews = await Mediator.Send(new GetTop15TagsByViewsQuery());
+            return Ok(top15TagsByViews);
         }
     }
 }
