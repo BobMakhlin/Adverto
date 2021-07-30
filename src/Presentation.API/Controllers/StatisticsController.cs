@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Application.CQRS.Categories.Model;
 using Application.CQRS.Statistics.Queries;
+using Application.CQRS.Tags.Models;
 using Domain.Primary.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Common.ControllerAbstractions;
@@ -13,17 +14,24 @@ namespace Presentation.API.Controllers
     public class StatisticsController : MyBaseController
     {
         [HttpGet("views-of-each-adtype")]
-        public async Task<IActionResult> GetViewsOfEachAdType()
+        public async Task<ActionResult<Dictionary<AdType, int>>> GetViewsOfEachAdType()
         {
             Dictionary<AdType, int> viewsOfEachAdType = await Mediator.Send(new GetViewsOfEachAdTypeQuery());
             return Ok(viewsOfEachAdType);
         }
 
         [HttpGet("top3-ad-categories")]
-        public async Task<IActionResult> GetTop3AdCategories()
+        public async Task<ActionResult<List<CategoryDto>>> GetTop3AdCategories()
         {
             List<CategoryDto> top3AdCategories = await Mediator.Send(new GetTop3AdCategoriesQuery());
             return Ok(top3AdCategories);
+        }
+        
+        [HttpGet("top15-tags-by-views")]
+        public async Task<ActionResult<List<TagDto>>> GetTop15TagsByViews()
+        {
+            List<TagDto> tags = await Mediator.Send(new GetTop15TagsByViewsQuery());
+            return Ok(tags);
         }
     }
 }
