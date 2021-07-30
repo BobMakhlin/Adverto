@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Application.Validation.Tools.Helpers;
@@ -129,6 +130,27 @@ namespace Application.Validation.Tools.Extensions
             return ruleBuilder
                 .Must(array => array?.Length >= minimumLength)
                 .WithMessage($"Array length must be at least {minimumLength}");
+        }
+
+        /// <summary>
+        /// Checks if the content type of the remote file, that is referenced by the url, is one of the <paramref name="expectedContentTypes"/>.
+        /// </summary>
+        /// <param name="ruleBuilder"></param>
+        /// <param name="expectedContentTypes">The collection of expected content types.</param>
+        /// <typeparam name="TObject">Type of object being validated.</typeparam>
+        /// <returns></returns>
+        public static IRuleBuilderOptions<TObject, string> UrlContentTypeIsOneOf<TObject>(
+            this IRuleBuilder<TObject, string> ruleBuilder,
+            IEnumerable<string> expectedContentTypes)
+        {
+            List<string> expectedContentTypesList = expectedContentTypes.ToList();
+            string expectedContentTypesString = string.Join(", ", expectedContentTypesList);
+
+            return ruleBuilder
+                .MustAsync(async (url, token) =>
+                    await UrlValidationHelpers.RemoteFileContentTypeEqualsToAsync(url, expectedContentTypesList))
+                .WithMessage(
+                    $"The url must be valid and its content type must be one of the following: {expectedContentTypesString}");
         }
     }
 }
