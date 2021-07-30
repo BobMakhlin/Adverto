@@ -71,6 +71,7 @@ namespace Presentation.API
         {
             serviceCollection
                 .AddControllers()
+                .AddNewtonsoftJson()
                 .AddJsonOptions(opts =>
                 {
                     var enumConverter = new JsonStringEnumConverter();
