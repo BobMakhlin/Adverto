@@ -20,7 +20,7 @@ namespace Persistence.Primary.DataAccess
         public DbSet<Ad> Ads { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<ViewedAd> ViewedAds { get; set; }
+        public DbSet<AdView> AdViews { get; set; }
         public DbSet<DisabledAd> DisabledAds { get; set; }
 
         #endregion

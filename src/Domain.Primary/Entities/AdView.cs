@@ -2,8 +2,10 @@
 
 namespace Domain.Primary.Entities
 {
-    public class ViewedAd
+    public class AdView
     {
+        public Guid AdViewId { get; set; }
+        
         public Guid AdId { get; set; }
         public Ad Ad { get; set; }
 

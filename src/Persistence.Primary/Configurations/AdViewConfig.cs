@@ -4,13 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Primary.Configurations
 {
-    public class ViewedAdConfig : IEntityTypeConfiguration<ViewedAd>
+    public class AdViewConfig : IEntityTypeConfiguration<AdView>
     {
-        public void Configure(EntityTypeBuilder<ViewedAd> builder)
+        public void Configure(EntityTypeBuilder<AdView> builder)
         {
-            builder
-                .HasKey(va => va.AdId);
-            
             builder
                 .Property(va => va.ViewedAt)
                 .IsRequired();

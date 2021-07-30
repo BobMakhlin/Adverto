@@ -13,7 +13,7 @@ namespace Domain.Primary.Entities
         public List<Tag> Tags { get; set; } = new List<Tag>();
         public List<Category> Categories { get; set; } = new List<Category>();
 
-        public ViewedAd ViewedAd { get; set; }
+        public List<AdView> AdViews { get; set; } = new List<AdView>();
         public DisabledAd DisabledAd { get; set; }
     }
 }

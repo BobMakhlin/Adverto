@@ -43,8 +43,8 @@ namespace Application.CQRS.Ads.Commands.AdViewed
                             .ConfigureAwait(false)
                         ?? throw new NotFoundException(nameof(Ad), request.AdId);
 
-                var viewedAd = new ViewedAd {Ad = ad, ViewedAt = DateTime.Now};
-                _context.ViewedAds.Add(viewedAd);
+                var adView = new AdView {Ad = ad, ViewedAt = DateTime.Now};
+                _context.AdViews.Add(adView);
 
                 await _context.SaveChangesAsync(cancellationToken)
                     .ConfigureAwait(false);
