@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using System.Text.Json.Serialization;
 using Application;
 using Application.Validation;
@@ -6,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Persistence.Logging;
 using Persistence.Primary;
 using Presentation.Common.Extensions;
@@ -25,8 +29,8 @@ namespace Presentation.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSwaggerGen();
-            
+            RegisterSwaggerGen(services);
+
             services.AddCors();
 
             RegisterControllers(services);
@@ -47,7 +51,7 @@ namespace Presentation.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Presentation.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Adverto"));
             }
 
             app.UseCors(Configuration);
@@ -62,6 +66,27 @@ namespace Presentation.API
             app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        /// <summary>
+        /// Registers the swagger-gen in the specified <paramref name="serviceCollection"/>.
+        /// </summary>
+        private void RegisterSwaggerGen(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSwaggerGen
+            (c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Adverto",
+                    Version = "v1",
+                    Description = "The advertisement API, made on .NET Core 3.1"
+                });
+                
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         /// <summary>
