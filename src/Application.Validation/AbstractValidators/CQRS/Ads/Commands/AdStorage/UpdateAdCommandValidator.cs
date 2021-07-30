@@ -8,7 +8,7 @@ using FluentValidation;
 
 namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
 {
-    public class CreateAdCommandValidator : AbstractValidator<CreateAdCommand>
+    public class UpdateAdCommandValidator : AbstractValidator<UpdateAdCommand>
     {
         #region Fields
 
@@ -22,7 +22,7 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
 
         #region Constructors
 
-        public CreateAdCommandValidator()
+        public UpdateAdCommandValidator()
         {
             RuleFor(c => c.Cost)
                 .GreaterThanOrEqualTo(AdValidationOptions.CostMinValue);

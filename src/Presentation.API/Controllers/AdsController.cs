@@ -23,6 +23,19 @@ namespace Presentation.API.Controllers
             return Ok(createdAdId);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAdAsync([FromRoute] Guid id, [FromBody] UpdateAdCommand request)
+        {
+            if (id != request.AdId)
+            {
+                return BadRequest();
+            }
+
+            await Mediator.Send(request);
+
+            return NoContent();
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAdAsync([FromRoute] Guid id)
         {
