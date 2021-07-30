@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Mime;
 using Application.CQRS.Ads.Commands.AdStorage;
+using Application.Persistence.Interfaces;
 using Application.Validation.Options;
 using Application.Validation.Tools.Extensions;
 using Domain.Primary.Entities;
@@ -22,7 +23,7 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
 
         #region Constructors
 
-        public CreateAdCommandValidator()
+        public CreateAdCommandValidator(IAdvertoDbContext context)
         {
             RuleFor(c => c.Cost)
                 .GreaterThanOrEqualTo(AdValidationOptions.CostMinValue);
@@ -31,6 +32,8 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
                 .NotEmpty()
                 .MinimumLength(AdValidationOptions.ContentMinLength)
                 .MaximumLength(AdValidationOptions.ContentMaxLength)
+                
+                .UniqueInsideOfDbSetColumn(context.Ads, ad => ad.Content)
                 
                 .UrlContentTypeIsOneOf(ImageMimeTypes)
                 .When(c => c.AdType == AdType.BannerAd, ApplyConditionTo.CurrentValidator);
