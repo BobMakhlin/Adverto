@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.CQRS.Ads.Commands.AdStorage;
@@ -18,12 +16,6 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
         #region Fields
 
         private readonly IAdvertoDbContext _context;
-        
-        /// <summary>
-        /// The collection, containing image MIME-types (e.g., gif, jpeg).
-        /// </summary>
-        private static readonly IEnumerable<string> ImageMimeTypes = new[]
-            {MediaTypeNames.Image.Gif, MediaTypeNames.Image.Jpeg};
 
         #endregion
 
@@ -43,7 +35,7 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
                 .UniqueInsideOfDbSetColumn(context.Ads, ad => ad.Content)
                 .WhenAsync(AdContentWasUpdated, ApplyConditionTo.CurrentValidator)
                 
-                .UrlContentTypeIsOneOf(ImageMimeTypes)
+                .UrlContentTypeIsOneOf(AdValidationOptions.BannerAdUrlAllowedContentTypes)
                 .When(c => c.AdType == AdType.BannerAd, ApplyConditionTo.CurrentValidator);
         }
 

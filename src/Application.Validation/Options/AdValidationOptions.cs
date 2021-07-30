@@ -1,4 +1,8 @@
-﻿namespace Application.Validation.Options
+﻿using System.Collections.Generic;
+using System.Net.Mime;
+using Domain.Primary.Entities;
+
+namespace Application.Validation.Options
 {
     /// <summary>
     /// Contains <see langword="static readonly"/> fields, used to validate an ad.
@@ -19,5 +23,11 @@
         /// Determines the maximum count of letters in content of the ad.
         /// </summary>
         public static readonly int ContentMaxLength = 3600;
+
+        /// <summary>
+        /// The collection of allowed content types for the URL, stored in the ad of type <see cref="AdType.BannerAd"/>.
+        /// </summary>
+        public static readonly IEnumerable<string> BannerAdUrlAllowedContentTypes = new[]
+            {MediaTypeNames.Image.Gif, MediaTypeNames.Image.Jpeg};
     }
 }

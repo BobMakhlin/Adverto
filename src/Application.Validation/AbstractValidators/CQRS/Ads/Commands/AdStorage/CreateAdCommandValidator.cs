@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Mime;
-using Application.CQRS.Ads.Commands.AdStorage;
+﻿using Application.CQRS.Ads.Commands.AdStorage;
 using Application.Persistence.Interfaces;
 using Application.Validation.Options;
 using Application.Validation.Tools.Extensions;
@@ -11,18 +9,6 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
 {
     public class CreateAdCommandValidator : AbstractValidator<CreateAdCommand>
     {
-        #region Fields
-
-        /// <summary>
-        /// The collection, containing image MIME-types (e.g., gif, jpeg).
-        /// </summary>
-        private static readonly IEnumerable<string> ImageMimeTypes = new[]
-            {MediaTypeNames.Image.Gif, MediaTypeNames.Image.Jpeg};
-        
-        #endregion
-
-        #region Constructors
-
         public CreateAdCommandValidator(IAdvertoDbContext context)
         {
             RuleFor(c => c.Cost)
@@ -35,10 +21,8 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
                 
                 .UniqueInsideOfDbSetColumn(context.Ads, ad => ad.Content)
                 
-                .UrlContentTypeIsOneOf(ImageMimeTypes)
+                .UrlContentTypeIsOneOf(AdValidationOptions.BannerAdUrlAllowedContentTypes)
                 .When(c => c.AdType == AdType.BannerAd, ApplyConditionTo.CurrentValidator);
         }
-
-        #endregion
     }
 }
