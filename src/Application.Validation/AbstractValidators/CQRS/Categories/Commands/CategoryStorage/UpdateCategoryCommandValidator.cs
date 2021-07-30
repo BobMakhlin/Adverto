@@ -31,7 +31,7 @@ namespace Application.Validation.AbstractValidators.CQRS.Categories.Commands.Cat
                 .NotEmpty()
                 .Length(CategoryValidationOptions.TitleMinLength, CategoryValidationOptions.TitleMaxLength)
                 .UniqueInsideOfDbSetColumn(context.Categories, c => c.Title)
-                .WhenAsync(CategoryTitleWasUpdated);
+                .WhenAsync(CategoryTitleWasUpdated, ApplyConditionTo.CurrentValidator);
         }
 
         #endregion

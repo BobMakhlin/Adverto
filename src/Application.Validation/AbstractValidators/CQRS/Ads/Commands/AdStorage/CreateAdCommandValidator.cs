@@ -33,7 +33,7 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
                 .MaximumLength(AdValidationOptions.ContentMaxLength)
                 
                 .UrlContentTypeIsOneOf(ImageMimeTypes)
-                .When(c => c.AdType == AdType.BannerAd);
+                .When(c => c.AdType == AdType.BannerAd, ApplyConditionTo.CurrentValidator);
         }
 
         #endregion

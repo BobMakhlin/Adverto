@@ -31,7 +31,7 @@ namespace Application.Validation.AbstractValidators.CQRS.Tags.Commands.TagStorag
                 .NotEmpty()
                 .Length(TagValidationOptions.TitleMinLength, TagValidationOptions.TitleMaxLength)
                 .UniqueInsideOfDbSetColumn(context.Tags, c => c.Title)
-                .WhenAsync(TagTitleWasUpdated);
+                .WhenAsync(TagTitleWasUpdated, ApplyConditionTo.CurrentValidator);
         }
 
         #endregion
