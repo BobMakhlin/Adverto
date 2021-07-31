@@ -2,7 +2,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Application;
+using Application.Persistence.Interfaces;
 using Application.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -66,6 +68,8 @@ namespace Presentation.API
             app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            var _ = RunPrimaryDbSeederAsync(app);
         }
 
         /// <summary>
@@ -102,6 +106,14 @@ namespace Presentation.API
                     var enumConverter = new JsonStringEnumConverter();
                     opts.JsonSerializerOptions.Converters.Add(enumConverter);
                 });
+        }
+
+        private async Task RunPrimaryDbSeederAsync(IApplicationBuilder app)
+        {
+            using IServiceScope scope = app.ApplicationServices.CreateScope();
+
+            IDbSeeder<IAdvertoDbContext> seeder = scope.ServiceProvider.GetRequiredService<IDbSeeder<IAdvertoDbContext>>();
+            await seeder.SeedAsync();
         }
     }
 }

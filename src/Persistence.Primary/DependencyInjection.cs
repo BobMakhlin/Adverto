@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Primary.DataAccess;
 using Persistence.Primary.Options;
+using Persistence.Primary.Seeders;
 
 namespace Persistence.Primary
 {
@@ -20,6 +21,7 @@ namespace Persistence.Primary
             AddPrimaryDbContext(services, configuration);
             
             services.AddScoped<IAdvertoDbContext>(provider => provider.GetService<AdvertoDbContext>());
+            services.AddScoped<IDbSeeder<IAdvertoDbContext>, AdvertoDbContextSeeder>();
 
             return services;
         }
