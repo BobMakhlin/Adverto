@@ -7,6 +7,7 @@ using Application.CQRS.Ads.Models;
 using Application.Persistence.Interfaces;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.CQRS.Statistics.Queries
 {
@@ -38,6 +39,7 @@ namespace Application.CQRS.Statistics.Queries
             public async Task<List<AdDto>> Handle(GetTop10AdsByViewsQuery request, CancellationToken cancellationToken)
             {
                 return await _context.Ads
+                    .AsNoTracking()
                     .OrderByDescending(x => x.AdViews.Count())
                     .Take(10)
                     .ProjectToListAsync<AdDto>(_mapper.ConfigurationProvider, cancellationToken)

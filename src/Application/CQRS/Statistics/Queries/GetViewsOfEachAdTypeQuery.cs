@@ -36,6 +36,7 @@ namespace Application.CQRS.Statistics.Queries
                 CancellationToken cancellationToken)
             {
                 return await _context.AdViews
+                    .AsNoTracking()
                     .Include(adView => adView.Ad)
                     .GroupBy(adView => adView.Ad.AdType)
                     .Select(group => new

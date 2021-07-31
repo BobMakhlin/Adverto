@@ -40,6 +40,7 @@ namespace Application.CQRS.Statistics.Queries
                 CancellationToken cancellationToken)
             {
                 return await _context.Categories
+                    .AsNoTracking()
                     .OrderByDescending(category => category.Ads.Count())
                     .Take(3)
                     .ProjectToListAsync<CategoryDto>(_mapper.ConfigurationProvider, cancellationToken)

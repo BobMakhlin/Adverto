@@ -7,6 +7,7 @@ using Application.CQRS.Tags.Models;
 using Application.Persistence.Interfaces;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.CQRS.Statistics.Queries
 {
@@ -38,6 +39,7 @@ namespace Application.CQRS.Statistics.Queries
             public async Task<List<TagDto>> Handle(GetTop15TagsByViewsQuery request, CancellationToken cancellationToken)
             {
                 return await _context.Tags
+                    .AsNoTracking()
                     .OrderByDescending(tag => tag.Ads.SelectMany(ad => ad.AdViews).Count())
                     .Take(15)
                     .ProjectToListAsync<TagDto>(_mapper.ConfigurationProvider, cancellationToken)
