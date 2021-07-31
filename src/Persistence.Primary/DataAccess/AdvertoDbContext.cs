@@ -22,6 +22,7 @@ namespace Persistence.Primary.DataAccess
         public DbSet<Category> Categories { get; set; }
         public DbSet<AdView> AdViews { get; set; }
         public DbSet<DisabledAd> DisabledAds { get; set; }
+        public DbSet<AdQueue> AdQueues { get; set; }
 
         #endregion
 

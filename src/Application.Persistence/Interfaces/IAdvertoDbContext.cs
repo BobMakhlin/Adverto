@@ -12,6 +12,7 @@ namespace Application.Persistence.Interfaces
         public DbSet<Category> Categories { get; set; }
         public DbSet<AdView> AdViews { get; set; }
         public DbSet<DisabledAd> DisabledAds { get; set; }
+        public DbSet<AdQueue> AdQueues { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
