@@ -30,7 +30,7 @@ namespace Persistence.Logging
         {
             string connectionString = configuration.GetConnectionString(PersistenceOptions.LoggingDatabase);
 
-            services.AddDbContext<XNewsLoggingDbContext>
+            services.AddDbContext<AdvertoLoggingDbContext>
             (
                 options => options.UseSqlServer(connectionString)
             );

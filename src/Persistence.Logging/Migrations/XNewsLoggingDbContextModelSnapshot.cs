@@ -8,7 +8,7 @@ using Persistence.Logging.DataAccess;
 
 namespace Persistence.Logging.Migrations
 {
-    [DbContext(typeof(XNewsLoggingDbContext))]
+    [DbContext(typeof(AdvertoLoggingDbContext))]
     partial class XNewsLoggingDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Logging.DataAccess
 {
-    internal sealed class XNewsLoggingDbContext : DbContext
+    internal sealed class AdvertoLoggingDbContext : DbContext
     {
         #region Constructors
 
-        public XNewsLoggingDbContext(DbContextOptions<XNewsLoggingDbContext> options) : base(options)
+        public AdvertoLoggingDbContext(DbContextOptions<AdvertoLoggingDbContext> options) : base(options)
         {
         }
 

@@ -9,7 +9,7 @@ using Persistence.Logging.DataAccess;
 
 namespace Persistence.Logging.Migrations
 {
-    [DbContext(typeof(XNewsLoggingDbContext))]
+    [DbContext(typeof(AdvertoLoggingDbContext))]
     [Migration("20210728091711_InitialCreate")]
     partial class InitialCreate
     {
