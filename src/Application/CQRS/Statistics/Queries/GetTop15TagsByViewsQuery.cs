@@ -38,10 +38,8 @@ namespace Application.CQRS.Statistics.Queries
             public async Task<List<TagDto>> Handle(GetTop15TagsByViewsQuery request, CancellationToken cancellationToken)
             {
                 return await _context.Tags
-                    .Select(tag => new {Tag = tag, TagViewesCount = tag.Ads.SelectMany(ad => ad.AdViews).Count()})
-                    .OrderByDescending(x => x.TagViewesCount)
+                    .OrderByDescending(tag => tag.Ads.SelectMany(ad => ad.AdViews).Count())
                     .Take(15)
-                    .Select(x => x.Tag)
                     .ProjectToListAsync<TagDto>(_mapper.ConfigurationProvider, cancellationToken)
                     .ConfigureAwait(false);
             }

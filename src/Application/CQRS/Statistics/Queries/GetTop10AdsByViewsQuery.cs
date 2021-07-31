@@ -38,10 +38,8 @@ namespace Application.CQRS.Statistics.Queries
             public async Task<List<AdDto>> Handle(GetTop10AdsByViewsQuery request, CancellationToken cancellationToken)
             {
                 return await _context.Ads
-                    .Select(ad => new {Ad = ad, AdViewesCount = ad.AdViews.Count()})
-                    .OrderByDescending(x => x.AdViewesCount)
+                    .OrderByDescending(x => x.AdViews.Count())
                     .Take(10)
-                    .Select(x => x.Ad)
                     .ProjectToListAsync<AdDto>(_mapper.ConfigurationProvider, cancellationToken)
                     .ConfigureAwait(false);
             }

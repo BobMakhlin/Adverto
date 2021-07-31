@@ -40,15 +40,8 @@ namespace Application.CQRS.Statistics.Queries
                 CancellationToken cancellationToken)
             {
                 return await _context.Categories
-                    .Include(category => category.Ads)
-                    .Select(category => new
-                    {
-                        Category = category, 
-                        AdsCount = category.Ads.Count()
-                    })
-                    .OrderByDescending(x => x.AdsCount)
+                    .OrderByDescending(category => category.Ads.Count())
                     .Take(3)
-                    .Select(x => x.Category)
                     .ProjectToListAsync<CategoryDto>(_mapper.ConfigurationProvider, cancellationToken)
                     .ConfigureAwait(false);
             }
