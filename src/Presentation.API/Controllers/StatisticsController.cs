@@ -14,6 +14,9 @@ namespace Presentation.API.Controllers
     [Route("[controller]")]
     public class StatisticsController : MyBaseController
     {
+        /// <summary>
+        /// Returns the count of views by each ad-type.
+        /// </summary>
         [HttpGet("views-of-each-adtype")]
         public async Task<ActionResult<Dictionary<AdType, int>>> GetViewsOfEachAdTypeAsync()
         {
@@ -21,6 +24,9 @@ namespace Presentation.API.Controllers
             return Ok(viewsOfEachAdType);
         }
 
+        /// <summary>
+        /// Returns top-3 categories of ads by frequency of use.
+        /// </summary>
         [HttpGet("top3-ad-categories")]
         public async Task<ActionResult<List<CategoryDto>>> GetTop3AdCategoriesAsync()
         {
@@ -28,6 +34,9 @@ namespace Presentation.API.Controllers
             return Ok(top3AdCategories);
         }
 
+        /// <summary>
+        /// Returns top-10 ads by views.
+        /// </summary>
         [HttpGet("top10-ads-by-views")]
         public async Task<ActionResult<List<AdDto>>> GetTop10AdsByViewsAsync()
         {
@@ -35,6 +44,9 @@ namespace Presentation.API.Controllers
             return Ok(top10AdsByViews);
         }
         
+        /// <summary>
+        /// Returns top-15 tags by views.
+        /// </summary>
         [HttpGet("top15-tags-by-views")]
         public async Task<ActionResult<List<TagDto>>> GetTop15TagsByViewsAsync()
         {
