@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Application.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,35 @@ namespace Application.Common.Extensions
             if (entity == null)
             {
                 throw new NotFoundException(typeof(TEntity).Name, primaryKeyValues);
+            }
+        }
+
+        /// <summary>
+        /// Throws an exception of type <see cref="ManyNotFoundException"/>, containing
+        /// the info about what entities were not found.
+        /// </summary>
+        public static async Task ThrowIfSomeDoNotExistAsync<TEntity, TPrimaryKey>(this DbSet<TEntity> dbSet,
+            TPrimaryKey[] keys)
+            where TEntity : class
+        {
+            var notFoundExceptions = new List<NotFoundException>();
+
+            foreach (TPrimaryKey key in keys)
+            {
+                try
+                {
+                    await dbSet.ThrowIfDoesNotExistAsync(key)
+                        .ConfigureAwait(false);
+                }
+                catch (NotFoundException e)
+                {
+                    notFoundExceptions.Add(e);
+                }
+            }
+
+            if (notFoundExceptions.Count > 0)
+            {
+                throw new ManyNotFoundException(notFoundExceptions);
             }
         }
     }

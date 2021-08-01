@@ -45,6 +45,10 @@ namespace Presentation.Common.Middlewares
             {
                 await HandleNotFoundExceptionAsync(ex, context);
             }
+            catch (ManyNotFoundException ex)
+            {
+                await HandleManyNotFoundExceptionAsync(ex, context);
+            }
             catch (Exception ex)
             {
                 HandleUnexpectedException(ex, context);
@@ -73,6 +77,20 @@ namespace Presentation.Common.Middlewares
         /// <param name="context">Used to set the response to a client</param>
         /// <returns></returns>
         private async Task HandleNotFoundExceptionAsync(NotFoundException exception, HttpContext context)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync(exception.Message);
+        }
+
+        /// <summary>
+        /// Handles the <paramref name="exception"/> of type <see cref="ManyNotFoundException"/> by setting a
+        /// response to a client, using the given <paramref name="context"/>.
+        /// </summary>
+        /// <param name="exception">Exception to be handled</param>
+        /// <param name="context">Used to set the response to a client</param>
+        /// <returns></returns>
+        private async Task HandleManyNotFoundExceptionAsync(ManyNotFoundException exception, HttpContext context)
         {
             context.Response.StatusCode = StatusCodes.Status404NotFound;
             context.Response.ContentType = "text/plain";

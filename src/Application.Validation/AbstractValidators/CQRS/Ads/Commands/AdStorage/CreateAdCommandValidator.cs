@@ -18,11 +18,15 @@ namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
                 .NotEmpty()
                 .MinimumLength(AdValidationOptions.ContentMinLength)
                 .MaximumLength(AdValidationOptions.ContentMaxLength)
-                
+
                 .UniqueInsideOfDbSetColumn(context.Ads, ad => ad.Content)
-                
+
                 .UrlContentTypeIsOneOf(AdValidationOptions.BannerAdUrlAllowedContentTypes)
                 .When(c => c.AdType == AdType.BannerAd, ApplyConditionTo.CurrentValidator);
+
+            RuleFor(c => c.CategoryIds)
+                .NotEmpty()
+                .ArrayMinimumLength(AdValidationOptions.CategoryIdsMinLength);
         }
     }
 }

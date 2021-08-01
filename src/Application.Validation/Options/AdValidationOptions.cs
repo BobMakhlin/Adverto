@@ -29,5 +29,10 @@ namespace Application.Validation.Options
         /// </summary>
         public static readonly IEnumerable<string> BannerAdUrlAllowedContentTypes = new[]
             {MediaTypeNames.Image.Gif, MediaTypeNames.Image.Jpeg};
+
+        /// <summary>
+        /// Determines the minimum count of items, stored in the CategoryIds-array.
+        /// </summary>
+        public static readonly int CategoryIdsMinLength = 1;
     }
 }

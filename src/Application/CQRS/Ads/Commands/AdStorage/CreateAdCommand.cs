@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.EFCore.Extensions;
 using Application.Persistence.Interfaces;
 using Domain.Primary.Entities;
 using MediatR;
+using Application.Common.Extensions;
+
 
 namespace Application.CQRS.Ads.Commands.AdStorage
 {
@@ -14,6 +17,8 @@ namespace Application.CQRS.Ads.Commands.AdStorage
         public AdType AdType { get; set; }
         public double Cost { get; set; }
         public string Content { get; set; }
+        public Guid[] CategoryIds { get; set; }
+        public Guid[] TagIds { get; set; }
 
         #endregion
 
@@ -40,7 +45,19 @@ namespace Application.CQRS.Ads.Commands.AdStorage
 
             public async Task<Guid> Handle(CreateAdCommand request, CancellationToken cancellationToken)
             {
+                request.CategoryIds ??= new Guid[] { };
+                request.TagIds ??= new Guid[] { };
+
+                await _context.Categories.ThrowIfSomeDoNotExistAsync(request.CategoryIds)
+                    .ConfigureAwait(false);
+                await _context.Tags.ThrowIfSomeDoNotExistAsync(request.TagIds)
+                    .ConfigureAwait(false);
+
                 Ad ad = ConvertToAd(request);
+                ad.Categories = await _context.Categories.FindManyAsync(request.CategoryIds)
+                    .ConfigureAwait(false);
+                ad.Tags = await _context.Tags.FindManyAsync(request.TagIds)
+                    .ConfigureAwait(false);
 
                 await CreateAdAsync(ad, cancellationToken)
                     .ConfigureAwait(false);

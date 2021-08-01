@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Application.EFCore\Application.EFCore.csproj" />
       <ProjectReference Include="..\Application.Pagination\Application.Pagination.csproj" />
       <ProjectReference Include="..\Application.Persistence\Application.Persistence.csproj" />
       <ProjectReference Include="..\Application.Queues\Application.Queues.csproj" />
