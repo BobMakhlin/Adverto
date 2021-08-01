@@ -26,6 +26,9 @@ namespace Persistence.Primary.Configurations
                 .Property(a => a.Content)
                 .IsRequired()
                 .HasMaxLength(3600);
+
+            builder
+                .HasIndex(a => a.AdType);
         }
     }
 }
