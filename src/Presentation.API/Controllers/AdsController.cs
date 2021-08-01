@@ -19,6 +19,13 @@ namespace Presentation.API.Controllers
     {
         #region AdStorage
 
+        [HttpGet("queue")]
+        public async Task<ActionResult<AdDto>> GetAdFromQueueAsync()
+        {
+            AdDto adDto = await Mediator.Send(new GetAdFromQueueQuery());
+            return Ok(adDto);
+        }
+        
         [HttpPost("filter")]
         public async Task<ActionResult<List<AdDto>>> FilterAdsAsync(FilterAdsQuery request)
         {

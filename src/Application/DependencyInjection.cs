@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using Application.Common.Behaviours;
+using Application.Queues.Interfaces;
+using Application.Queues.Realisations;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +21,7 @@ namespace Application
             services.AddAutoMapper(currentAssembly);
             services.AddMediatR(currentAssembly);
             AddMediatorPipelineBehaviours(services);
+            AddQueueEnumerators(services);
             
             return services;
         }
@@ -30,6 +33,15 @@ namespace Application
         private static void AddMediatorPipelineBehaviours(IServiceCollection services)
         {
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionLoggingBehaviour<,>));
+        }
+
+        /// <summary>
+        /// Registers queue enumerators (e.g. <see cref="AdQueueDatabaseInfiniteEnumerator"/>)
+        /// on the specified <paramref name="services"/>.
+        /// </summary>
+        private static void AddQueueEnumerators(IServiceCollection services)
+        {
+            services.AddScoped<IAdQueueEnumerator, AdQueueDatabaseInfiniteEnumerator>();
         }
     }
 }
