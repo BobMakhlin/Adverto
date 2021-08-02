@@ -19,7 +19,7 @@ namespace Application.CQRS.Ads.Queries.AdStorage
     {
         #region Properties
 
-        public AdType AdType { get; set; }
+        public AdType? AdType { get; set; }
         public List<Guid> CategoryIds { get; set; }
         public List<Guid> TagIds { get; set; }
 
@@ -68,23 +68,32 @@ namespace Application.CQRS.Ads.Queries.AdStorage
             /// </summary>
             private Expression<Func<Ad, bool>> GetFilterPredicate(FilterAdsQuery request)
             {
-                ExpressionStarter<Ad> predicate = PredicateBuilder.New<Ad>();
+                ExpressionStarter<Ad> predicate = PredicateBuilder.New<Ad>(true);
 
-                predicate.And(ad => ad.AdType == request.AdType);
+                if (request.AdType != null)
+                {
+                    predicate.And(ad => ad.AdType == request.AdType);
+                }
 
-                predicate.And
-                (
-                    ad => ad.Categories
-                              .Count(category => request.CategoryIds.Contains(category.CategoryId))
-                          == request.CategoryIds.Count()
-                );
+                if (request.CategoryIds != null)
+                {
+                    predicate.And
+                    (
+                        ad => ad.Categories
+                                  .Count(category => request.CategoryIds.Contains(category.CategoryId))
+                              == request.CategoryIds.Count()
+                    );
+                }
 
-                predicate.And
-                (
-                    ad => ad.Tags
-                              .Count(tag => request.TagIds.Contains(tag.TagId))
-                          == request.TagIds.Count()
-                );
+                if (request.TagIds != null)
+                {
+                    predicate.And
+                    (
+                        ad => ad.Tags
+                                  .Count(tag => request.TagIds.Contains(tag.TagId))
+                              == request.TagIds.Count()
+                    );
+                }
 
                 return predicate;
             }
