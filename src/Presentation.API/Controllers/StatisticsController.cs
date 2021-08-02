@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Application.CQRS.Ads.Models;
 using Application.CQRS.Categories.Model;
@@ -18,10 +19,10 @@ namespace Presentation.API.Controllers
         /// Returns the count of views by each ad-type.
         /// </summary>
         [HttpGet("views-of-each-adtype")]
-        public async Task<ActionResult<Dictionary<AdType, int>>> GetViewsOfEachAdTypeAsync()
+        public async Task<ActionResult<KeyValuePair<AdType, int>>> GetViewsOfEachAdTypeAsync()
         {
             Dictionary<AdType, int> viewsOfEachAdType = await Mediator.Send(new GetViewsOfEachAdTypeQuery());
-            return Ok(viewsOfEachAdType);
+            return Ok(viewsOfEachAdType.ToList());
         }
 
         /// <summary>
