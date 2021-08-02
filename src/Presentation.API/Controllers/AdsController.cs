@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.CQRS.Ads.Commands.AdCategory;
 using Application.CQRS.Ads.Commands.AdDisabled;
@@ -8,6 +7,7 @@ using Application.CQRS.Ads.Commands.AdTag;
 using Application.CQRS.Ads.Commands.AdViewed;
 using Application.CQRS.Ads.Models;
 using Application.CQRS.Ads.Queries.AdStorage;
+using Application.Pagination.Common.Models.PagedList;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Common.ControllerAbstractions;
 
@@ -27,9 +27,9 @@ namespace Presentation.API.Controllers
         }
         
         [HttpPost("filter")]
-        public async Task<ActionResult<List<AdDto>>> FilterAdsAsync(FilterAdsQuery request)
+        public async Task<ActionResult<IPagedList<AdDto>>> FilterAdsAsync(FilterAdsQuery request)
         {
-            List<AdDto> ads = await Mediator.Send(request);
+            IPagedList<AdDto> ads = await Mediator.Send(request);
             return Ok(ads);
         }
         

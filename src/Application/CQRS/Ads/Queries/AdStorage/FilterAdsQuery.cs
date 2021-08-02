@@ -4,10 +4,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Common.Extensions;
 using Application.CQRS.Ads.Models;
+using Application.Pagination.Common.Models;
+using Application.Pagination.Common.Models.PagedList;
+using Application.Pagination.Extensions;
 using Application.Persistence.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Domain.Primary.Entities;
 using LinqKit;
 using MediatR;
@@ -15,8 +18,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.CQRS.Ads.Queries.AdStorage
 {
-    public class FilterAdsQuery : IRequest<List<AdDto>>
+    public class FilterAdsQuery : IRequest<IPagedList<AdDto>>, IPaginationRequest
     {
+        #region IPaginationRequest
+
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+
+        #endregion
+        
         #region Properties
 
         public AdType? AdType { get; set; }
@@ -27,7 +37,7 @@ namespace Application.CQRS.Ads.Queries.AdStorage
 
         #region Classes
 
-        public class Handler : IRequestHandler<FilterAdsQuery, List<AdDto>>
+        public class Handler : IRequestHandler<FilterAdsQuery, IPagedList<AdDto>>
         {
             #region Fields
 
@@ -48,14 +58,16 @@ namespace Application.CQRS.Ads.Queries.AdStorage
 
             #region IRequestHandler<FilterAdsQuery, List<AdDto>>
 
-            public async Task<List<AdDto>> Handle(FilterAdsQuery request, CancellationToken cancellationToken)
+            public async Task<IPagedList<AdDto>> Handle(FilterAdsQuery request, CancellationToken cancellationToken)
             {
                 Expression<Func<Ad, bool>> predicate = GetFilterPredicate(request);
 
                 return await _context.Ads
                     .AsNoTracking()
                     .Where(predicate)
-                    .ProjectToListAsync<AdDto>(_mapper.ConfigurationProvider, cancellationToken)
+                    .OrderBy(ad => ad.AdId)
+                    .ProjectTo<AdDto>(_mapper.ConfigurationProvider, cancellationToken)
+                    .ProjectToPagedListAsync(request, cancellationToken)
                     .ConfigureAwait(false);
             }
 
