@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using AI.TextAnalysis.Interfaces;
+using AI.TextAnalysis.Realisations.KeywordExtractor;
 using Application.Common.Behaviours;
 using Application.Queues.Interfaces;
 using Application.Queues.Realisations;
@@ -22,6 +24,7 @@ namespace Application
             services.AddMediatR(currentAssembly);
             AddMediatorPipelineBehaviours(services);
             AddQueueEnumerators(services);
+            AddAiServices(services);
             
             return services;
         }
@@ -42,6 +45,15 @@ namespace Application
         private static void AddQueueEnumerators(IServiceCollection services)
         {
             services.AddScoped<IAdQueueEnumerator, AdQueueDatabaseInfiniteEnumerator>();
+        }
+        
+        /// <summary>
+        /// Registers the AI-services (e.g. <see cref="AzureKeywordsExtractorService"/>)
+        /// on the specified <paramref name="services"/>.
+        /// </summary>
+        private static void AddAiServices(IServiceCollection services)
+        {
+            services.AddScoped<IKeywordsExtractorService, AzureKeywordsExtractorService>();
         }
     }
 }

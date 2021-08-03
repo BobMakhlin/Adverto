@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.CQRS.Ads.Commands.AdCategory;
 using Application.CQRS.Ads.Commands.AdDisabled;
@@ -7,6 +8,7 @@ using Application.CQRS.Ads.Commands.AdTag;
 using Application.CQRS.Ads.Commands.AdViewed;
 using Application.CQRS.Ads.Models;
 using Application.CQRS.Ads.Queries.AdStorage;
+using Application.CQRS.Tags.Models;
 using Application.Pagination.Common.Models.PagedList;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Common.ControllerAbstractions;
@@ -94,6 +96,21 @@ namespace Presentation.API.Controllers
         {
             await Mediator.Send(request);
             return NoContent();
+        }
+
+        /// <summary>
+        /// Attach tags to the ad of the type 'TextAd' automatically by extracting the content keywords.
+        /// </summary>
+        /// <returns>
+        /// The attached tags.
+        /// </returns>
+        [HttpPost("text-ad/{id}/tags/auto")]
+        public async Task<ActionResult<List<TagDto>>> AttachTagsToTextAdByExtractingContentKeywordsAsync(
+            [FromRoute] Guid id)
+        {
+            List<TagDto> attachedTags = await Mediator.Send(new AttachTagsToTextAdByExtractingContentKeywordsCommand
+                {AdId = id});
+            return Ok(attachedTags);
         }
 
         #endregion
