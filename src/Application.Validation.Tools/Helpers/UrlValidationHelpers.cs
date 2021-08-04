@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -35,6 +36,17 @@ namespace Application.Validation.Tools.Helpers
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Returns true if the specified <paramref name="url"/> is a valid string.
+        /// </summary>
+        public static bool IsStringValidUrl(string url)
+        {
+            bool createdSuccessfully = Uri.TryCreate(url, UriKind.Absolute, out var uriResult);
+
+            return createdSuccessfully
+                   && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
         }
     }
 }

@@ -3,7 +3,7 @@ using HtmlAgilityPack;
 
 namespace Application.Validation.Tools.Helpers
 {
-    internal static class HtmlValidationHelpers
+    public static class HtmlValidationHelpers
     {
         /// <summary>
         /// Checks if the specified <paramref name="htmlString"/> is valid.

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Validation.Tools.Helpers
 {
-    internal static class EfCoreValidationHelpers
+    public static class EfCoreValidationHelpers
     {
         /// <summary>
         /// Determines whether the specified <paramref name="newValue"/> is unique within the
