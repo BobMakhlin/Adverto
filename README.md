@@ -15,6 +15,7 @@ with [Azure Cognitive Services](https://azure.microsoft.com/en-us/services/cogni
 *   `dotnet ef database update --project="src/Persistence.Primary" --startup-project="src/Presentation.API" --context=AdvertoDbContext`
 *   `dotnet ef database update --project="src/Persistence.Logging" --startup-project="src/Presentation.API" --context=AdvertoLoggingDbContext`
 
+5. Run the project to seed the database.
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FBobMakhlin%2FAdverto.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FBobMakhlin%2FAdverto?ref=badge_large)
