@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.CQRS.Ads.Commands.AdCategory;
 using Application.CQRS.Ads.Commands.AdDisabled;
-using Application.CQRS.Ads.Commands.AdStorage;
 using Application.CQRS.Ads.Commands.AdStorage.Create.Realisations;
+using Application.CQRS.Ads.Commands.AdStorage.Delete;
+using Application.CQRS.Ads.Commands.AdStorage.Update.Realisations;
 using Application.CQRS.Ads.Commands.AdTag;
 using Application.CQRS.Ads.Commands.AdViewed;
 using Application.CQRS.Ads.Models;
@@ -36,6 +37,8 @@ namespace Presentation.API.Controllers
             return Ok(ads);
         }
 
+        #region Create
+
         [HttpPost("text-ad")]
         public async Task<ActionResult<Guid>> PostTextAdAsync([FromBody] CreateTextAdCommand request)
         {
@@ -64,18 +67,55 @@ namespace Presentation.API.Controllers
             return Ok(createdAdId);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdAsync([FromRoute] Guid id, [FromBody] UpdateAdCommand request)
+        #endregion
+
+        #region Update
+
+        /// <summary>
+        /// Updates the ad, making its AdType equal to TextAd.
+        /// </summary>
+        [HttpPut("text-ad/{id}")]
+        public async Task<IActionResult> PutTextAdAsync([FromRoute] Guid id, [FromBody] UpdateTextAdCommand request)
         {
-            if (id != request.AdId)
-            {
-                return BadRequest();
-            }
-
+            if (id != request.AdId) return BadRequest();
             await Mediator.Send(request);
-
             return NoContent();
         }
+
+        /// <summary>
+        /// Updates the ad, making its AdType equal to BannerAd.
+        /// </summary>
+        [HttpPut("banner-ad/{id}")]
+        public async Task<IActionResult> PutBannerAdAsync([FromRoute] Guid id, [FromBody] UpdateBannerAdCommand request)
+        {
+            if (id != request.AdId) return BadRequest();
+            await Mediator.Send(request);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates the ad, making its AdType equal to VideoAd.
+        /// </summary>
+        [HttpPut("video-ad/{id}")]
+        public async Task<IActionResult> PutVideoAdAsync([FromRoute] Guid id, [FromBody] UpdateVideoAdCommand request)
+        {
+            if (id != request.AdId) return BadRequest();
+            await Mediator.Send(request);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates the ad, making its AdType equal to HtmlAd.
+        /// </summary>
+        [HttpPut("html-ad/{id}")]
+        public async Task<IActionResult> PutHtmlAdAsync([FromRoute] Guid id, [FromBody] UpdateHtmlAdCommand request)
+        {
+            if (id != request.AdId) return BadRequest();
+            await Mediator.Send(request);
+            return NoContent();
+        }
+
+        #endregion
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAdAsync([FromRoute] Guid id)

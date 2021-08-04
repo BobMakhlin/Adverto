@@ -6,7 +6,7 @@ using Application.Persistence.Interfaces;
 using Domain.Primary.Entities;
 using MediatR;
 
-namespace Application.CQRS.Ads.Commands.AdStorage
+namespace Application.CQRS.Ads.Commands.AdStorage.Delete
 {
     public class DeleteAdCommand : IRequest
     {

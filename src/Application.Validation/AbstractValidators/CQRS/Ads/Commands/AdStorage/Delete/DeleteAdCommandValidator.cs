@@ -1,4 +1,4 @@
-﻿using Application.CQRS.Ads.Commands.AdStorage;
+﻿using Application.CQRS.Ads.Commands.AdStorage.Delete;
 using FluentValidation;
 
 namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage.Delete
