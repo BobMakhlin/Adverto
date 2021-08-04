@@ -1,5 +1,6 @@
 # Adverto
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ba354f4a93d1430ca19cf0235e19ac65)](https://www.codacy.com/gh/BobMakhlin/Adverto/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BobMakhlin/Adverto&amp;utm_campaign=Badge_Grade)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FBobMakhlin%2FAdverto.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FBobMakhlin%2FAdverto?ref=badge_shield)
 
 The advertisement API built on .NET Core 3.1 following the Clean Architecture and CQRS
 with [Azure Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/) interaction.
@@ -13,3 +14,7 @@ with [Azure Cognitive Services](https://azure.microsoft.com/en-us/services/cogni
 
 *   `dotnet ef database update --project="src/Persistence.Primary" --startup-project="src/Presentation.API" --context=AdvertoDbContext`
 *   `dotnet ef database update --project="src/Persistence.Logging" --startup-project="src/Presentation.API" --context=AdvertoLoggingDbContext`
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FBobMakhlin%2FAdverto.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FBobMakhlin%2FAdverto?ref=badge_large)
