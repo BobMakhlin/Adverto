@@ -85,7 +85,7 @@ namespace Presentation.API
                 {
                     Title = "Adverto",
                     Version = "v1",
-                    Description = "The advertisement API, made on .NET Core 3.1"
+                    Description = "The advertisement API built on .NET Core 3.1 following the Clean Architecture and CQRS with Azure Cognitive Services interaction."
                 });
                 
                 c.SchemaFilter<PropertiesWithoutSetterSchemaFilter>();
