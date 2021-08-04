@@ -152,5 +152,19 @@ namespace Application.Validation.Tools.Extensions
                 .WithMessage(
                     $"The url must be valid and its content type must be one of the following: {expectedContentTypesString}");
         }
+        
+        /// <summary>
+        /// Checks if the HTML-markup is valid.
+        /// </summary>
+        /// <param name="ruleBuilder"></param>
+        /// <typeparam name="TObject">Type of object being validated.</typeparam>
+        /// <returns></returns>
+        public static IRuleBuilderOptions<TObject, string> ValidHtmlMarkup<TObject>(
+            this IRuleBuilder<TObject, string> ruleBuilder)
+        {
+            return ruleBuilder
+                .Must(HtmlValidationHelpers.IsValidHtml)
+                .WithMessage("Invalid HTML-markup");
+        }
     }
 }

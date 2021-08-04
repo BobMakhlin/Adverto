@@ -1,7 +1,7 @@
 ﻿using Application.CQRS.Ads.Commands.AdStorage;
 using FluentValidation;
 
-namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage
+namespace Application.Validation.AbstractValidators.CQRS.Ads.Commands.AdStorage.Delete
 {
     public class DeleteAdCommandValidator : AbstractValidator<DeleteAdCommand>
     {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.CQRS.Ads.Commands.AdCategory;
 using Application.CQRS.Ads.Commands.AdDisabled;
 using Application.CQRS.Ads.Commands.AdStorage;
+using Application.CQRS.Ads.Commands.AdStorage.Create.Realisations;
 using Application.CQRS.Ads.Commands.AdTag;
 using Application.CQRS.Ads.Commands.AdViewed;
 using Application.CQRS.Ads.Models;
@@ -34,9 +35,30 @@ namespace Presentation.API.Controllers
             IPagedList<AdDto> ads = await Mediator.Send(request);
             return Ok(ads);
         }
+
+        [HttpPost("text-ad")]
+        public async Task<ActionResult<Guid>> PostTextAdAsync([FromBody] CreateTextAdCommand request)
+        {
+            Guid createdAdId = await Mediator.Send(request);
+            return Ok(createdAdId);
+        }
         
-        [HttpPost]
-        public async Task<ActionResult<Guid>> PostAdAsync([FromBody] CreateAdCommand request)
+        [HttpPost("banner-ad")]
+        public async Task<ActionResult<Guid>> PostBannerAdAsync([FromBody] CreateBannerAdCommand request)
+        {
+            Guid createdAdId = await Mediator.Send(request);
+            return Ok(createdAdId);
+        }
+        
+        [HttpPost("video-ad")]
+        public async Task<ActionResult<Guid>> PostVideoAdAsync([FromBody] CreateVideoAdCommand request)
+        {
+            Guid createdAdId = await Mediator.Send(request);
+            return Ok(createdAdId);
+        }
+        
+        [HttpPost("html-ad")]
+        public async Task<ActionResult<Guid>> PostHtmlAdAsync([FromBody] CreateHtmlAdCommand request)
         {
             Guid createdAdId = await Mediator.Send(request);
             return Ok(createdAdId);

@@ -16,6 +16,7 @@ using Persistence.Logging;
 using Persistence.Primary;
 using Presentation.Common.Extensions;
 using Presentation.Common.Middlewares;
+using Presentation.Common.Swagger.SchemaFilters;
 
 namespace Presentation.API
 {
@@ -86,6 +87,8 @@ namespace Presentation.API
                     Version = "v1",
                     Description = "The advertisement API, made on .NET Core 3.1"
                 });
+                
+                c.SchemaFilter<PropertiesWithoutSetterSchemaFilter>();
                 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
